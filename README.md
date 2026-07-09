@@ -60,6 +60,10 @@ Não há seed de usuário admin (senha em seed exigiria um hash bcrypt fixo no c
 mvn test
 ```
 
+O projeto tem duas camadas de teste:
+- **Unitários** (`*Test.java`): `AuthServiceTest`, `BookServiceTest`, `JwtServiceTest`. Usam Mockito, não tocam banco nem precisam de Docker.
+- **Integração** (`*IT.java`): `AuthControllerIT`, `BookControllerIT`. Sobem um Postgres real via **Testcontainers** e batem nas rotas HTTP de verdade com MockMvc, incluindo as regras de autorização por role (`ROLE_ADMIN` vs `ROLE_CUSTOMER`). **Exigem Docker rodando na máquina.**
+
 ## Variáveis de ambiente
 
 | Variável | Descrição | Padrão (dev) |
