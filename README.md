@@ -6,7 +6,7 @@ Este é o backend de um projeto full-stack. O frontend (Next.js) fica em um repo
 
 ## Por que essa migração
 
-O projeto original era um sistema completo de e-commerce com múltiplos módulos administrativos (grupos de precificação, cupons, fornecedores, trocas, relatórios). Esta versão reconstrói o **núcleo do domínio** ( catálogo, carrinho, checkout e administração básica de estoque) com práticas atuais de arquitetura backend: autenticação stateless com JWT, migrations versionadas, validação declarativa, tratamento de erros centralizado e testes automatizados.
+O projeto original era um sistema completo de e-commerce com múltiplos módulos administrativos (grupos de precificação, cupons, fornecedores, trocas, relatórios). Esta versão reconstrói o **núcleo do domínio** (catálogo, carrinho, checkout e administração básica de estoque) com práticas atuais de arquitetura backend: autenticação stateless com JWT, migrations versionadas, validação declarativa, tratamento de erros centralizado e testes automatizados.
 
 ### Escopo desta versão
 
@@ -14,10 +14,12 @@ O projeto original era um sistema completo de e-commerce com múltiplos módulos
 ✅ Catálogo de livros com busca e filtro por categoria
 ✅ CRUD de livros (admin)
 ✅ Controle de estoque com histórico de movimentações (entrada/saída)
-🔜 Carrinho de compras (próxima fase)
-🔜 Checkout e pedidos (próxima fase)
+✅ Carrinho de compras (persistido por usuário)
+✅ Checkout e pedidos, com baixa/restauração de estoque e cancelamento
 
 ❌ **Fora de escopo, propositalmente:** grupos de precificação, cupons de desconto/troca, cadastro de fornecedores, gráficos de vendas, múltiplos endereços/cartões por cliente. O sistema original tinha esses módulos; esta versão foca no fluxo principal de compra.
+
+**Nota de modelagem:** o endereço de entrega é preenchido a cada checkout (não existe um cadastro de endereços do cliente), e o pagamento é simulado. O pedido nasce direto como `PLACED`, sem integração real com gateway de pagamento.
 
 ## Rodando localmente
 
@@ -62,7 +64,7 @@ mvn test
 
 O projeto tem duas camadas de teste:
 - **Unitários** (`*Test.java`): `AuthServiceTest`, `BookServiceTest`, `JwtServiceTest`. Usam Mockito, não tocam banco nem precisam de Docker.
-- **Integração** (`*IT.java`): `AuthControllerIT`, `BookControllerIT`. Sobem um Postgres real via **Testcontainers** e batem nas rotas HTTP de verdade com MockMvc, incluindo as regras de autorização por role (`ROLE_ADMIN` vs `ROLE_CUSTOMER`). **Exigem Docker rodando na máquina.**
+- **Integração** (`*IT.java`): `AuthControllerIT`, `BookControllerIT`, `OrderFlowIT`. Sobem um Postgres real via **Testcontainers** e batem nas rotas HTTP de verdade com MockMvc, incluindo as regras de autorização por role (`ROLE_ADMIN` vs `ROLE_CUSTOMER`) e a jornada completa carrinho → checkout → cancelamento (com baixa e restauração de estoque de verdade). **Exigem Docker rodando na máquina.**
 
 ## Variáveis de ambiente
 
