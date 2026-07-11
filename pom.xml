@@ -12,13 +12,13 @@
     </parent>
 
     <groupId>com.bookstore</groupId>
-    <artifactId>bookstore-api</artifactId>
+    <artifactId>bookstore-lite-api</artifactId>
     <version>0.1.0</version>
-    <name>bookstore-api</name>
+    <name>bookstore-lite-api</name>
     <description>Versão "lite" do trabalho-les — catálogo de livros, carrinho, checkout e admin básico</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <jjwt.version>0.12.6</jjwt.version>
         <testcontainers.version>1.20.1</testcontainers.version>
     </properties>

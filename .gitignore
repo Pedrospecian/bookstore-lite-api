@@ -6,4 +6,3 @@ target/
 .DS_Store
 .env
 application-local.yml
-key-bookstore-lite-api.txt

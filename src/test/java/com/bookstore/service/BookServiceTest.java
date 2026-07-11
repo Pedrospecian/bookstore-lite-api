@@ -135,7 +135,7 @@ class BookServiceTest {
         bookService.deactivate(book.getId());
 
         assertThat(book.getActive()).isFalse();
-        verify(bookRepository, never()).delete(any());
+        verify(bookRepository, never()).delete(any(Book.class));
         verify(bookRepository, never()).deleteById(any());
     }
 }
