@@ -35,7 +35,7 @@ O projeto original era um sistema completo de e-commerce com múltiplos módulos
 docker compose up -d
 
 # 2. Configura as variáveis de ambiente (ou exporte no shell)
-export DATABASE_URL=jdbc:postgresql://localhost:5432/bookstore
+export DATABASE_URL=jdbc:postgresql://localhost:5432/bookstore-lite
 export DATABASE_USERNAME=postgres
 export DATABASE_PASSWORD=postgres
 export JWT_SECRET=troque-por-um-segredo-de-pelo-menos-32-caracteres
@@ -70,7 +70,7 @@ O projeto tem duas camadas de teste:
 
 | Variável | Descrição | Padrão (dev) |
 |---|---|---|
-| `DATABASE_URL` | URL JDBC do Postgres | `jdbc:postgresql://localhost:5432/bookstore` |
+| `DATABASE_URL` | URL JDBC do Postgres | `jdbc:postgresql://localhost:5432/bookstore-lite` |
 | `DATABASE_USERNAME` | Usuário do banco | `postgres` |
 | `DATABASE_PASSWORD` | Senha do banco | `postgres` |
 | `JWT_SECRET` | Segredo usado para assinar os tokens (min. 32 caracteres) | — |
