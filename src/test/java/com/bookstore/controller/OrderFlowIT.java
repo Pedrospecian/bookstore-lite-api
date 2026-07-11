@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Testa a jornada completa do cliente: adicionar livros ao carrinho, fechar o pedido
  * (checkout, com baixa real de estoque) e cancelar o pedido (com restauração do estoque).
- * Roda contra um Postgres real via Testcontainers — sem mocks nesta camada.
+ * Roda contra um Postgres real via Testcontainers, sem usar mocks.
  */
 class OrderFlowIT extends AbstractIntegrationTest {
 
@@ -89,7 +89,7 @@ class OrderFlowIT extends AbstractIntegrationTest {
                 .andExpect(jsonPath("$.items[0].quantity").value(3))
                 .andExpect(jsonPath("$.total").value(75.00));
 
-        // 3. Estoque ainda não foi alterado — só é debitado no checkout
+        // 3. Estoque ainda não foi alterado, pois ele só é debitado no checkout
         mockMvc.perform(get("/books/" + bookId))
                 .andExpect(jsonPath("$.stockQuantity").value(10));
 

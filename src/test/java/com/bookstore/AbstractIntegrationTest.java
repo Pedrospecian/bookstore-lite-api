@@ -11,7 +11,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 /**
  * Base para testes de integração: sobe um Postgres real em container (via Testcontainers)
- * e deixa o Flyway rodar as migrations reais contra ele — sem mocks, sem H2 fingindo ser Postgres.
+ * e deixa o Flyway rodar as migrations reais contra ele, sem mocks nem H2 fingindo ser Postgres.
  *
  * Requer Docker rodando na máquina que executa os testes.
  */
@@ -25,7 +25,7 @@ public abstract class AbstractIntegrationTest {
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
 
     // Fallback manual, caso a versão do Spring Boot em uso não reconheça @ServiceConnection
-    // (mantido por segurança — @ServiceConnection já cobre isso no Spring Boot 3.1+)
+    // (mantido por segurança. @ServiceConnection já cobre isso no Spring Boot 3.1+)
     @DynamicPropertySource
     static void overrideProps(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", postgres::getJdbcUrl);

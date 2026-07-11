@@ -12,6 +12,6 @@ class BookstoreApplicationTests {
     void contextLoads() {
         // Se o contexto do Spring subir sem erros (incluindo Security, JPA e os beans
         // de JWT), esse teste passa. É uma rede de segurança básica contra erros de
-        // configuração — os testes de unidade/integração de verdade vêm na próxima fase.
+        // configuração. Os testes de unidade/integração reais vêm na próxima fase.
     }
 }

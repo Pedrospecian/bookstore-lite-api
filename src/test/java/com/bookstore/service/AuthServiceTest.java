@@ -65,7 +65,7 @@ class AuthServiceTest {
         assertThat(response.accessToken()).isEqualTo("access-token");
         assertThat(response.refreshToken()).isEqualTo("refresh-token");
 
-        // A senha em texto plano nunca deve ser persistida — só o hash
+        // Persistir a senha como hash
         verify(userRepository).save(argThat(u -> u.getPasswordHash().equals("hash-fake")));
     }
 

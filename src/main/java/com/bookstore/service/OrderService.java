@@ -34,8 +34,8 @@ public class OrderService {
      * Converte o carrinho do usuário em um pedido: valida estoque de cada item,
      * dá baixa no estoque (gerando o histórico de movimentação via BookService),
      * grava um snapshot de título/preço em cada OrderItem e esvazia o carrinho.
-     * Tudo dentro de uma única transação — se qualquer item falhar por falta de
-     * estoque, nada é persistido.
+     * Tudo fica dentro de uma única transação, e se qualquer item falhar por falta
+     * de estoque, então nada será persistido.
      */
     @Transactional
     public Order checkout(User user, CheckoutRequest request) {
@@ -61,7 +61,7 @@ public class OrderService {
             Book book = cartItem.getBook();
 
             // Dá baixa no estoque reaproveitando a mesma regra usada pelo admin
-            // (inclusive o histórico de StockMovement) — se não houver estoque
+            // (inclusive o histórico de StockMovement). Se não houver estoque
             // suficiente, adjustStock lança InsufficientStockException e a
             // transação inteira do checkout é revertida.
             bookService.adjustStock(
@@ -94,8 +94,8 @@ public class OrderService {
     }
 
     public Order findByIdForUser(User user, UUID orderId) {
-        // Usa NotFound (não Forbidden) quando o pedido não é do usuário — evita
-        // confirmar pra quem não tem acesso que aquele ID de pedido existe.
+        // Usa NotFound (não Forbidden) quando o pedido não é do usuário.
+        // Isso evita confirmar pra quem não tem acesso que aquele ID de pedido existe.
         return orderRepository.findByIdAndUserId(orderId, user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado"));
     }

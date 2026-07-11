@@ -45,7 +45,7 @@ class JwtServiceTest {
 
     @Test
     void parseClaimsLancaExcecaoParaTokenExpirado() throws InterruptedException {
-        // expiração de 1ms — o token já nasce expirado por segurança do teste
+        // expiração de 1ms. Por segurança do teste, o token já nasce expirado
         JwtService service = newService(1, 604_800_000);
         String token = service.generateAccessToken(UUID.randomUUID().toString(), "CUSTOMER");
 

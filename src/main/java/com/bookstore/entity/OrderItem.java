@@ -27,8 +27,8 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    // Referência ao livro original, só pra navegação — NÃO usar os campos dele
-    // pra exibir o pedido, já que o livro pode mudar de preço/título depois da compra.
+    // Referência ao livro original, só para navegação. Não usar os campos dele para
+    // exibir o pedido, pois o livro pode mudar de preço/título depois da compra.
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
